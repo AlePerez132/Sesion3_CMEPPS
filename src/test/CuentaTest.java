@@ -11,11 +11,12 @@ import org.junit.jupiter.api.Test;
 import pkg.Cuenta;
 
 class CuentaTest {
-	private static Cuenta aux;
+	private static Cuenta aux, aux2;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		aux=new Cuenta("12345", "Manuel", 0);
+		aux =new Cuenta("12345", "Manuel", 50);
+		aux2 =new Cuenta("67890", "Javier", 0);
 	}
 
 	@AfterAll
@@ -41,6 +42,20 @@ class CuentaTest {
 	void testRetirar() {
 		aux.retirar(1000);
 		assertEquals(aux.getSaldo(), 0);
+	}	
+	
+	@Test void operacionCuenta1() {
+		aux.retirar(200);
+		aux.ingresar(100);
+		aux.retirar(200);
+		assertEquals(-250, aux.getSaldo());
+	}
+	
+	@Test void operacionCuenta2() {
+		aux2.retirar(350);
+		aux2.retirar(150);
+		aux2.ingresar(50);
+		assertEquals(-450, aux2.getSaldo());
 	}
 
 }
